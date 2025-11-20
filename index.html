@@ -4,55 +4,61 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Demoness Evelynn</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&display=swap" rel="stylesheet">
+
   <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(180deg, #2e003e 0%, #000000 100%);
+      color: #f3d1ff;
+      font-family: 'Cinzel Decorative', serif;
+      position: relative;
+      min-height: 100vh;
+    }
+
     /* Watermark logo behind content */
     body::before {
       content: "";
       position: fixed;
       top: 50%;
       left: 50%;
-      width: 600px;
-      height: 600px;
+      width: 600px;              /* adjust size as needed */
+      height: 600px;             /* adjust size as needed */
       background: url('https://drive.google.com/uc?export=download&id=15NaReZ8SUiMkmAqUDp2LvOFMtKS0SABw') no-repeat center center;
       background-size: contain;
-      opacity: 0.08;
+      opacity: 0.08;              /* very faint watermark */
       transform: translate(-50%, -50%);
       z-index: -1;
       pointer-events: none;
-      filter: drop-shadow(0 0 30px #800080);
-    }
-    body {
-      margin: 0;
-      padding: 0;
-      background: linear-gradient(180deg, #050007 0%, #0b0012 60%, #150018 100%);
-      font-family: 'Cinzel Decorative', 'Cinzel', serif;
-      color: #f3d1ff;
+      filter: drop-shadow(0 0 30px #800080); /* adds a subtle purple glow */
     }
 
     .hero {
       height: 100vh;
-      background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.8)), url('YOUR-IMAGE-HERE.jpg') center/cover no-repeat;
+      position: relative;
+      overflow: hidden;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
       text-align: center;
       padding: 0 20px;
+      background: rgba(0, 0, 0, 0.5);
     }
 
     .hero h1 {
       font-size: 4rem;
       letter-spacing: 4px;
       color: #b30074;
-      text-shadow: 0 0 25px #b30074, 0 0 45px #5a0038;
-      margin: 0;
+      animation: pulseGlow 4s infinite ease-in-out;
     }
 
     .hero p {
       margin-top: 20px;
       font-size: 1.4rem;
       max-width: 700px;
-      line-height: 1.5;
+      line-height: 1.6;
       color: #e7baff;
     }
 
@@ -65,43 +71,66 @@
       border-radius: 40px;
       color: #1a001f;
       cursor: pointer;
-      box-shadow: 0 0 20px #b30074;
       transition: 0.3s;
+      animation: breatheButton 3.5s ease-in-out infinite;
     }
 
     .tribute-button:hover {
       background: #d4008a;
-      box-shadow: 0 0 30px #d4008a;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      width: 500px;
+      height: 500px;
+      background: url('sigil-purple.png') center/contain no-repeat;
+      opacity: 0.15;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      animation: pulseGlow 6s infinite ease-in-out;
+      pointer-events: none;
+    }
+
+    .smoke-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('SMOKE.png') center/cover no-repeat;
+      opacity: 0.18;
+      animation: smokeRise 12s infinite ease-in-out;
+      pointer-events: none;
     }
 
     .section {
-      padding: 80px 20px;
+      padding: 100px 20px;
       max-width: 900px;
       margin: auto;
-    }
-
-    h2 {
-      font-size: 2.5rem;
-      text-align: center;
-      color: #b30074;
-      text-shadow: 0 0 10px #b30074;
-      margin-bottom: 40px;
-    }
-
-    .about, .rules, .links {
       font-size: 1.2rem;
       line-height: 1.7;
       color: #e7baff;
+      border-top: 1px solid rgba(212,175,55,0.25);
+      border-bottom: 1px solid rgba(212,175,55,0.15);
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 1.2s ease, transform 1.2s ease;
+      backdrop-filter: blur(2px);
     }
 
-    .rules ul, .links ul {
-      list-style: none;
-      padding: 0;
+    .section.visible {
+      opacity: 1;
+      transform: translateY(0);
     }
 
-    .rules li, .links li {
-      margin-bottom: 15px;
-      padding-left: 10px;
+    h2 {
+      text-align: center;
+      font-size: 2.5rem;
+      color: #b30074;
+      text-shadow: 0 0 25px #b30074;
+      margin-bottom: 40px;
     }
 
     .links a {
@@ -111,19 +140,19 @@
     }
 
     .links a:hover {
-      text-shadow: 0 0 10px #b30074;
+      text-shadow: 0 0 15px #b30074;
     }
-    /* Dark seduction animations */
+
     @keyframes pulseGlow {
       0% { text-shadow: 0 0 20px #b30074, 0 0 40px #5a0038; }
       50% { text-shadow: 0 0 30px #d4008a, 0 0 60px #7a0050; }
       100% { text-shadow: 0 0 20px #b30074, 0 0 40px #5a0038; }
     }
 
-    @keyframes driftingShadow {
-      0% { opacity: 0.2; transform: translateX(-10px); }
-      50% { opacity: 0.35; transform: translateX(10px); }
-      100% { opacity: 0.2; transform: translateX(-10px); }
+    @keyframes breatheButton {
+      0% { box-shadow: 0 0 20px #b30074; }
+      50% { box-shadow: 0 0 35px #d4008a; }
+      100% { box-shadow: 0 0 20px #b30074; }
     }
 
     @keyframes smokeRise {
@@ -131,133 +160,38 @@
       50% { opacity: 0.25; transform: translateY(-10px); }
       100% { opacity: 0.1; transform: translateY(10px); }
     }
-
-    .hero h1 {
-      animation: pulseGlow 4s infinite ease-in-out;
-    }
-
-    .royal-gold {
-      color: #d4af37;
-      text-shadow: 0 0 10px #8c6f1d;
-    }
-
-    .smoke-overlay {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: url('SMOKE-OVERLAY.png') center/cover no-repeat;
-      opacity: 0.18;
-      animation: smokeRise 12s infinite ease-in-out;
-      pointer-events: none;
-    }
-
-    .hero::after {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: radial-gradient(circle at center, rgba(255,0,150,0.15) 0%, transparent 70%);
-      animation: driftingShadow 10s infinite ease-in-out;
-      pointer-events: none;
-    }
-  /* Gold-trimmed borders */
-    .section {
-      border-top: 1px solid rgba(212,175,55,0.25);
-      border-bottom: 1px solid rgba(212,175,55,0.15);
-      padding: 100px 25px;
-      backdrop-filter: blur(2px);
-    }
-
-    /* Parallax background */
-    body {
-      background-attachment: fixed;
-      background-size: cover;
-    }
-
-    /* Hero image darker + luxurious overlay */
-    .hero {
-      position: relative;
-      overflow: hidden;
-      background-blend-mode: multiply;
-      filter: brightness(0.75);
-    }
-
-    /* Background sigil behind Evelynn */
-    .hero::before {
-      content: "";
-      position: absolute;
-      width: 500px;
-      height: 500px;
-      background: url('DEMON-SIGIL.png') center/contain no-repeat;
-      opacity: 0.12;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      animation: pulseGlow 6s infinite ease-in-out;
-      pointer-events: none;
-    }
-
-    /* Breathing glow on the tribute button */
-    @keyframes breatheButton {
-      0% { box-shadow: 0 0 20px #b30074; }
-      50% { box-shadow: 0 0 35px #d4008a; }
-      100% { box-shadow: 0 0 20px #b30074; }
-    }
-
-    .tribute-button {
-      animation: breatheButton 3.5s ease-in-out infinite;
-    }
-
-    /* Seductive scroll fade-in */
-    .section {
-      opacity: 0;
-      transform: translateY(30px);
-      transition: opacity 1.2s ease, transform 1.2s ease;
-    }
-
-    .section.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    /* Script to activate scroll animations */
   </style>
-  <script>
-    const sections = document.querySelectorAll('.section');
-    const revealOnScroll = () => {
-      const triggerPoint = window.innerHeight * 0.85;
-      sections.forEach(sec => {
-        const rect = sec.getBoundingClientRect();
-        if (rect.top < triggerPoint) sec.classList.add('visible');
-      });
-    };
-    window.addEventListener('scroll', revealOnScroll);
-    window.addEventListener('load', revealOnScroll);
-  </script>
 </head>
+
 <body>
   <section class="hero">
+    <div class="smoke-overlay"></div>
+
     <h1>Demoness Evelynn</h1>
-    <p>Descend willingly, mortal. Your devotion fuels my power, your offerings amuse me, and your obedience proves your worth. If you crave to serve a true demoness... you're exactly where you need to be.</p>
+    <p>
+      Descend, mortal. Your devotion fuels my strength.<br>
+      Your offerings amuse me.<br>
+      Kneel — and prove you deserve my attention.
+    </p>
     <button class="tribute-button">Tribute Now</button>
   </section>
 
-  <section class="section about">
+  <section class="section">
     <h2>Who Is Evelynn?</h2>
-    <p>Evelynn is not your savior—she is your addiction. A demoness born from desire, hunger, and control. Those who kneel find purpose. Those who resist are forgotten. She offers attention only to the worthy, and demands loyalty, worship, and financial devotion in return.</p>
+    <p>
+      Evelynn is hunger made flesh — a demoness shaped from desire,<br>
+      control, and whispered surrender. Those who kneel find purpose.<br>
+      Those who hesitate… fade into irrelevance.
+    </p>
   </section>
 
-  <section class="section rules">
+  <section class="section">
     <h2>Serve Correctly</h2>
     <ul>
       <li>• You speak when spoken to.</li>
       <li>• Tribute is respect made tangible.</li>
       <li>• Obedience is expected, not requested.</li>
-      <li>• Fail to worship, and you are dismissed.</li>
+      <li>• Fail to worship, and you are forgotten.</li>
     </ul>
   </section>
 
@@ -270,5 +204,18 @@
       <li><a href="#">Gallery</a></li>
     </ul>
   </section>
+
+  <script>
+    const sections = document.querySelectorAll('.section');
+    const revealOnScroll = () => {
+      const triggerPoint = window.innerHeight * 0.85;
+      sections.forEach(sec => {
+        const rect = sec.getBoundingClientRect();
+        if (rect.top < triggerPoint) sec.classList.add('visible');
+      });
+    };
+    window.addEventListener('scroll', revealOnScroll);
+    window.addEventListener('load', revealOnScroll);
+  </script>
 </body>
 </html>
