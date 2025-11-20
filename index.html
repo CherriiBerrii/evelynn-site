@@ -5,16 +5,33 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Demoness Evelynn</title>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&display=swap" rel="stylesheet">
+
   <style>
     body {
       margin: 0;
       padding: 0;
-      /* Use a purple → black gradient background */
       background: linear-gradient(180deg, #2e003e 0%, #000000 100%);
       color: #f3d1ff;
       font-family: 'Cinzel Decorative', serif;
-      background-attachment: fixed;
-      background-size: cover;
+      position: relative;
+      min-height: 100vh;
+    }
+
+    /* Watermark logo behind content */
+    body::before {
+      content: "";
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      width: 600px;              /* adjust size as needed */
+      height: 600px;             /* adjust size as needed */
+      background: url('https://drive.google.com/uc?export=download&id=15NaReZ8SUiMkmAqUDp2LvOFMtKS0SABw') no-repeat center center;
+      background-size: contain;
+      opacity: 0.08;              /* very faint watermark */
+      transform: translate(-50%, -50%);
+      z-index: -1;
+      pointer-events: none;
+      filter: drop-shadow(0 0 30px #800080); /* adds a subtle purple glow */
     }
 
     .hero {
@@ -27,7 +44,6 @@
       align-items: center;
       text-align: center;
       padding: 0 20px;
-      /* Optional dark overlay to make text/pop effects stronger */
       background: rgba(0, 0, 0, 0.5);
     }
 
@@ -150,6 +166,7 @@
 <body>
   <section class="hero">
     <div class="smoke-overlay"></div>
+
     <h1>Demoness Evelynn</h1>
     <p>
       Descend, mortal. Your devotion fuels my strength.<br>
@@ -200,6 +217,5 @@
     window.addEventListener('scroll', revealOnScroll);
     window.addEventListener('load', revealOnScroll);
   </script>
-
 </body>
 </html>
